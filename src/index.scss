@@ -74,6 +74,31 @@ html, body, .full, #root {
 .main {
   flex: 3;
   background: white;
+  color: black;
+
+  &--header {
+    &-time {
+      font-size: 0.9em;
+      color: rgb(120, 124, 126);
+    }
+  }
+
+  &--title {
+    color: #1A1A1B;
+    font-size: 20px;
+  }
+
+  &--preview {
+    width: 100%;
+    display: flex;
+    align-items: center;
+
+    video, img {
+      max-width: 50%;
+      margin: 0 auto;
+      max-height: 300px;
+    }
+  }
 }
 
 .post {
@@ -118,6 +143,10 @@ html, body, .full, #root {
     }
 
     .arrow-right {
+      cursor: pointer;
+    }
+
+    img {
       cursor: pointer;
     }
   }

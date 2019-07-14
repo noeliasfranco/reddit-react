@@ -14,6 +14,14 @@ class Post extends Component {
         this.props.markAsRead(item);
     }
 
+    openImage() {
+        let { item } = this.props;
+
+        window.open(
+            item.url,
+            '_blank'
+        );
+    }
 
     render() {
         let { item } = this.props;
@@ -29,7 +37,7 @@ class Post extends Component {
                     <span className="post--header-time">{moment(item.created_utc, 'X').fromNow()}</span>
                 </div>
                 <div className="post--content">
-                    <img src={item.thumbnail} alt=""/>
+                    <img src={item.thumbnail} alt="" title="Click to open full image" onClick={()=>this.openImage()}/>
                     <p className="post--content-title" title={item.title}>{item.title}</p>
                     <span className="arrow-right" onClick={()=> this.markAsRead()}></span>
                 </div>

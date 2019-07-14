@@ -19,7 +19,8 @@ class Main extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          posts : []
+          posts : [],
+          selectedPost: null
       };
       autobind(this);
   }
@@ -49,6 +50,7 @@ class Main extends Component {
               created: data.created,
               created_utc: data.created_utc,
               num_comments: data.num_comments,
+              subreddit: data.subreddit,
               dismiss: false,
               unread: true
           }
@@ -57,12 +59,15 @@ class Main extends Component {
   }
 
     markAsRead(item) {
-        if(!item.unread)
+        if(!item.unread) {
+            this.setState({selectedPost: item});
             return;
+        }
+
         let posts = [...this.state.posts];
         let index = posts.findIndex(el => el.id === item.id);
         posts[index].unread = false;
-        this.setState({ posts });
+        this.setState({ posts: posts, selectedPost: item });
     }
 
     dismissPost(item) {
@@ -76,7 +81,7 @@ class Main extends Component {
     }
 
     render() {
-      let { posts } = this.state;
+      let { posts, selectedPost } = this.state;
       return(
         <div className="flex-grid">
             <Sidebar
@@ -85,7 +90,9 @@ class Main extends Component {
                 dismissPost={this.dismissPost}
                 dismissAll={this.dismissAll}
             />
-            <DetailedView />
+            <DetailedView
+                item={selectedPost}
+            />
         </div>
    );
   }
