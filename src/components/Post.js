@@ -5,7 +5,8 @@ import moment from 'moment';
 class Post extends Component {
     static propTypes = {
         item: PropTypes.object,
-        markAsRead: PropTypes.func
+        markAsRead: PropTypes.func,
+        dismissPost: PropTypes.func
     };
 
     markAsRead() {
@@ -13,11 +14,12 @@ class Post extends Component {
         this.props.markAsRead(item);
     }
 
+
     render() {
         let { item } = this.props;
 
         return(
-            <div className="post" onClick={()=> this.markAsRead()}>
+            <div className="post">
                 <div className="post--header">
                     {
                         item.unread &&
@@ -28,10 +30,11 @@ class Post extends Component {
                 </div>
                 <div className="post--content">
                     <img src={item.thumbnail} alt=""/>
-                    <p className="post--content-title">{item.title}</p>
+                    <p className="post--content-title" title={item.title}>{item.title}</p>
+                    <span className="arrow-right" onClick={()=> this.markAsRead()}></span>
                 </div>
                 <div className="post--footer">
-                    <button className="post--footer-dismiss">Dismiss Post</button>
+                    <button className="post--footer-dismiss" onClick={()=> this.props.dismissPost(item)}>Dismiss Post</button>
                     <span className="post--footer-comments">{item.num_comments} comments</span>
                 </div>
             </div>

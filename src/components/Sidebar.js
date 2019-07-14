@@ -6,7 +6,9 @@ import autobind from 'class-autobind';
 class Sidebar extends Component {
     static propTypes = {
         posts: PropTypes.array,
-        markAsRead: PropTypes.func
+        markAsRead: PropTypes.func,
+        dismissPost: PropTypes.func,
+        dismissAll: PropTypes.func
     };
 
     constructor(props) {
@@ -14,9 +16,8 @@ class Sidebar extends Component {
         autobind(this);
     }
 
-
     render() {
-        let { posts, markAsRead } = this.props;
+        let { posts, markAsRead, dismissPost } = this.props;
 
         return(
             <aside className="col sidebar">
@@ -26,12 +27,22 @@ class Sidebar extends Component {
                         {
                             posts.map(function(post) {
                                 return (
-                                    <Post item={post} key={post.id} markAsRead={markAsRead}/>
+                                    <Post
+                                        item={post}
+                                        key={post.id}
+                                        markAsRead={markAsRead}
+                                        dismissPost={dismissPost}/>
                                 )
                             })
                         }
                     </div>
                 </div>
+                {
+                    posts.length > 0 &&
+                    <footer className="sidebar--footer">
+                        <span onClick={()=> this.props.dismissAll()}>Dismiss All</span>
+                    </footer>
+                }
             </aside>
         );
     }

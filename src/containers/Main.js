@@ -65,11 +65,26 @@ class Main extends Component {
         this.setState({ posts });
     }
 
-  render() {
+    dismissPost(item) {
+        this.setState({
+            posts: this.state.posts.filter((post) => post.id !== item.id)
+        });
+    }
+
+    dismissAll() {
+      this.setState({posts: []});
+    }
+
+    render() {
       let { posts } = this.state;
       return(
         <div className="flex-grid">
-            <Sidebar posts={posts} markAsRead={this.markAsRead}/>
+            <Sidebar
+                posts={posts}
+                markAsRead={this.markAsRead}
+                dismissPost={this.dismissPost}
+                dismissAll={this.dismissAll}
+            />
             <DetailedView />
         </div>
    );
