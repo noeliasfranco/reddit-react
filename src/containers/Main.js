@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import autobind from 'class-autobind';
 
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux';
@@ -20,6 +21,7 @@ class Main extends Component {
       this.state = {
           posts : []
       };
+      autobind(this);
   }
 
   componentDidMount() {
@@ -54,11 +56,20 @@ class Main extends Component {
       this.setState({posts: formattedPosts});
   }
 
+    markAsRead(item) {
+        if(!item.unread)
+            return;
+        let posts = [...this.state.posts];
+        let index = posts.findIndex(el => el.id === item.id);
+        posts[index].unread = false;
+        this.setState({ posts });
+    }
+
   render() {
       let { posts } = this.state;
       return(
         <div className="flex-grid">
-            <Sidebar posts={posts}/>
+            <Sidebar posts={posts} markAsRead={this.markAsRead}/>
             <DetailedView />
         </div>
    );

@@ -4,22 +4,35 @@ import moment from 'moment';
 
 class Post extends Component {
     static propTypes = {
-        item: PropTypes.object
+        item: PropTypes.object,
+        markAsRead: PropTypes.func
     };
+
+    markAsRead() {
+        let { item } = this.props;
+        this.props.markAsRead(item);
+    }
 
     render() {
         let { item } = this.props;
 
         return(
-            <div>
-                <div>{item.author} <span>{moment(item.created_utc, 'X').fromNow()}</span></div>
-                <div>
-                    <img src={item.thumbnail}/>
-                    <p>{item.title}</p>
+            <div className="post" onClick={()=> this.markAsRead()}>
+                <div className="post--header">
+                    {
+                        item.unread &&
+                        <span className="unread"></span>
+                    }
+                    <span className="post--header-author">{item.author}</span>
+                    <span className="post--header-time">{moment(item.created_utc, 'X').fromNow()}</span>
                 </div>
-                <div>
-                    <span>Dismiss Post</span>
-                    <span>{item.num_comments} comments</span>
+                <div className="post--content">
+                    <img src={item.thumbnail} alt=""/>
+                    <p className="post--content-title">{item.title}</p>
+                </div>
+                <div className="post--footer">
+                    <button className="post--footer-dismiss">Dismiss Post</button>
+                    <span className="post--footer-comments">{item.num_comments} comments</span>
                 </div>
             </div>
         );
