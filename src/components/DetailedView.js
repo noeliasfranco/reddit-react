@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 class DetailedView extends Component {
     render() {
         return(
-            <div>
+            <section className="col main">
                 DetailedView
-            </div>
+            </section>
         );
     }
 }

@@ -19,9 +19,9 @@ class Main extends Component {
       this.props.actions.loadPosts();
   }
 
-    render() {
+  render() {
    return(
-       <div>
+       <div className="flex-grid">
          <Sidebar />
          <DetailedView />
        </div>
