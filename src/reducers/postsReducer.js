@@ -1,12 +1,9 @@
 import * as types from '../actions/actionTypes';
-import initialState from './initialState';
 
-export const posts = (state = initialState, action) => {
+export const posts = (state = [], action) => {
     switch (action.type) {
         case types.LOAD_POSTS_SUCCESS:
-            return Object.assign({}, state, {
-                posts: action.posts
-            });
+            return Object.assign({}, state, action.posts);
 
         default:
             return state;
